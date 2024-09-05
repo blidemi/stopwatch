@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    background-color: #d9acdd;
+}
+
+h1 {
+    color: #333;
+}
+
+#time {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 20px 0;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+button {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #9d2ee7;
+    
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#flajok {
+    margin-top: 20px;
+    font-size: 19px;
+    color: gray;
+}
+</style>
+</head>
+<body>
+  <h1>Stopwatch</h1>
+  <div id="time">0.00</div>
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+  <button id="reset">Reset</button>
+  <button id="timestop">Timestop</button>
+
+  <div id="flajok"></div>
+
+    <script>
+  const time = document.getElementById('time');
+const start = document.getElementById('start');
+const stop = document.getElementById('stop');
+const reset = document.getElementById('reset');
+const timestop = document.getElementById('timestop');
+const flajochek = document.getElementById('flajok');
+
+let interval;
+let i = 0;
+let flajochekArray = [];
+
+start.onclick = () => {
+    interval = setInterval(() => {
+        i++;
+        time.textContent = i / 100;
+    }, 10);
+    start.disabled = true;
+};
+
+stop.onclick = () => {
+    clearInterval(interval);
+    start.disabled = false;
+}
+
+reset.onclick = () => {
+    clearInterval(interval);
+    i = 0;
+    time.textContent = i;
+    flajochekArray = [];
+    flajochek.innerHTML = '';
+    start.disabled = false;
+};
+
+timestop.onclick = () => {
+    flajochekArray.push(i / 100);
+    flajochek.innerHTML += `<p>${(i / 100).toFixed(2)}</p>`;
+    i = 0;
+    time.textContent = i;
+};
+    </script>
+</body>
+</html>
